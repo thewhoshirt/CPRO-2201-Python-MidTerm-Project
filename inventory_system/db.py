@@ -48,3 +48,50 @@ def get_all_perishable() -> list[Perishables]:
 
     return [Perishables(r["product_id"], r["name"], r["price"], r["stock_quantity", r["expiration_date"]]) for r in rows]
 
+# -------------------------
+# Add to electronics and produce 
+# -------------------------
+def add_electronic(name:str, price:int, stock_quantity:int, warranty_period:int) -> int | None:
+    try: 
+        with connect() as conn:
+            cur = conn.cursor()
+            # Inserts into Products
+            cur.execute(
+                "INSERT INTO Products(name, price, stock_quantity) VALUES(?,?,?)", (name, price, stock_quantity) 
+            )
+        #Generates a new ID for product 
+        new_product_id = cur.lastrowid
+        
+        #Inserts into Electronics
+        cur.execute(
+            "INSERT INTO Electronics(product_id, warranty_period) VALUES (?,?)", (new_product_id, warranty_period)
+        )
+
+        return new_product_id
+    
+    #Error code, prints error and doesn't add to database 
+    except sqlite3.IntegrityError as e: 
+        print("Electronic Product Could Not Be Added: ", e)
+        return None
+
+def add_perishables(name:str, price:int, stock_quantity:int, expiration_date:int) -> int | None:
+    try: 
+        with connect() as conn:
+            cur = conn.cursor()
+            # Inserts into Products
+            cur.execute(
+                "INSERT INTO Products(name, price, stock_quantity) VALUES(?,?,?)", (name, price, stock_quantity) 
+            )
+        #Generates a new ID for product 
+        new_product_id = cur.lastrowid
+
+        cur.execute(
+            "INSERT INTO Perishables(product_id, expiration_date) VALUES (?,?)", (new_product_id, expiration_date)
+        )
+
+        return new_product_id
+    
+    except sqlite3.IntegrityError as e: 
+        print("Perishable Product Could Not Be Added: ", e)
+        return None
+
