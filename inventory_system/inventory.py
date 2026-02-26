@@ -1,6 +1,8 @@
 # Inventory Management Logic 
-from db import get_all_electronics, get_all_perishable, get_all_product
+from db import get_all_electronics, get_all_perishable, add_electronic, add_perishables, create_db
 from models import Products, Electronics, Perishables
+
+create_db()
 
 class Inventory:
     def __init__(self):
@@ -11,6 +13,9 @@ class Inventory:
     # Get electronics and perishables from database
     # -------------------------
     def retrieve_products(self):
+        self.electronics.clear()
+        self.perishables.clear()
+
         electronics = get_all_electronics()
         perishable = get_all_perishable()
 
@@ -46,11 +51,20 @@ class Inventory:
         else:
             display_list.append('No perishables available')
 
-        print(display_list)
-
+        return display_list
+    
+    # -------------------------
+    # Add new products
+    # -------------------------
+    def add_electronic(self, name, price, stock_quantity, warranty_period):
+        add_electronic(name, price, stock_quantity, warranty_period)
+        
+    def add_perishable(self, name, price, stock_quantity, expiration_date):
+        add_perishables(name, price, stock_quantity, expiration_date)
 
         
 
 i = Inventory()
-i.list_all_products()
+i.add_perishable("Apples",3,20,4)
+print(i.list_all_products())
 
