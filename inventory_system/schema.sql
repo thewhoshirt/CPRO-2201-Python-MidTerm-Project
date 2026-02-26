@@ -25,7 +25,7 @@ CREATE TABLE Electronics(
     FOREIGN KEY(product_id) REFERENCES Products(product_id)
 )
 -- Perishables Table 
-CREATE TABLE Perishabless(
+CREATE TABLE Perishables(
     product_id INTEGER PRIMARY KEY NOT NULL,
     expiration_date TEXT, 
 
