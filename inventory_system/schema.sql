@@ -15,28 +15,28 @@ CREATE TABLE Products(
     product_id INTEGER PRIMARY KEY NOT NULL,
     name TEXT NOT NULL, 
     price INTEGER NOT NULL, 
-    stock_quantity INTEGER 
-)
+    stock_quantity INTEGER NOT NULL
+);
 
 CREATE TABLE Electronics(
     product_id INTEGER PRIMARY KEY NOT NULL,
-    warranty_period INTEGER, 
-
+    warranty_period INTEGER NOT NULL, 
     FOREIGN KEY(product_id) REFERENCES Products(product_id)
-)
+);
 -- Perishables Table 
 CREATE TABLE Perishables(
     product_id INTEGER PRIMARY KEY NOT NULL,
     expiration_date TEXT, 
-
     FOREIGN KEY(product_id) REFERENCES Products(product_id)
-)
-
+);
 
 CREATE TABLE Sales(
     sales_id INTEGER PRIMARY KEY NOT NULL, 
     product_id INTEGER NOT NULL,
     price INTEGER NOT NULL,
-
     FOREIGN KEY(product_id) REFERENCES Products(product_id)
-)
+);
+
+-- Populate tables 
+INSERT INTO Products(product_id, name, price, stock_quantity)
+    VALUES(1, "Laptop", 1200, 4);

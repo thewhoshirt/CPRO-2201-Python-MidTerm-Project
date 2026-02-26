@@ -3,11 +3,19 @@
 import sqlite3 
 from models import Products, Electronics, Perishables, Sales
 
+def create_db():
+    conn = sqlite3.connect("inventory.db")
+    with open("schema.sql") as f:
+        conn.executescript(f.read())
+    conn.commit()
+    conn.close()
+
 def connect():
-        conn = sqlite3.connect("./schema.sql")
-        conn.row_factory = sqlite3.Row
-        conn.execute("PRAGMA foreign_keys = ON;")
-        return conn
+    conn = sqlite3.connect('inventory.db')
+    conn.row_factory = sqlite3.Row
+    conn.execute('PRAGMA foreign_keys = ON')
+    return conn
+
 
 # -------------------------
 # Get products, electronics and produce 
@@ -29,7 +37,7 @@ def get_all_electronics() -> list[Electronics]:
 
     return [Electronics(r["product_id"], r["name"], r["price"], r["stock_quantity", r["warranty_period"]]) for r in rows]
 
-def get_all_produce() -> list[Electronics]:
+def get_all_perishable() -> list[Perishables]:
     with connect() as conn: 
         rows = conn.execute("""
             SELECT p.product_id, p.name, p.price, p.stock_quantity, per.expiration_date
@@ -38,4 +46,5 @@ def get_all_produce() -> list[Electronics]:
             ORDER BY p.product_id 
         """).fetchall()
 
-    return [Electronics(r["product_id"], r["name"], r["price"], r["stock_quantity", r["expiration_date"]]) for r in rows]
+    return [Perishables(r["product_id"], r["name"], r["price"], r["stock_quantity", r["expiration_date"]]) for r in rows]
+
