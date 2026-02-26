@@ -16,9 +16,9 @@ class Products:
 
     def is_in_stock(self, quantity):
         if quantity > 0:
-            return True
+            return "Is in stock."
         else:
-            return False
+            return "Out of stock."
         
     def sell(self, quantity):
         self.stock_quantity -= quantity
