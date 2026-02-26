@@ -20,15 +20,17 @@ CREATE TABLE Products(
 
 CREATE TABLE Electronics(
     product_id INTEGER PRIMARY KEY NOT NULL,
-    name TEXT NOT NULL, 
-    price INTEGER NOT NULL, 
-    stock_quantity INTEGER,  
     warranty_period INTEGER, 
 
-    FOREIGN KEY(product_id, name, price, stock_quantity) REFERENCES Products(product_id, name, price, stock_quantity)
+    FOREIGN KEY(product_id) REFERENCES Products(product_id)
 )
 -- Perishables Table 
+CREATE TABLE Perishabless(
+    product_id INTEGER PRIMARY KEY NOT NULL,
+    expiration_date TEXT, 
 
+    FOREIGN KEY(product_id) REFERENCES Products(product_id)
+)
 
 
 CREATE TABLE Sales(
