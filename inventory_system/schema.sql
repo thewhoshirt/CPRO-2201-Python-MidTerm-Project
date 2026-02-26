@@ -11,6 +11,12 @@ DROP TABLE IF EXISTS Electronics;
 DROP TABLE IF EXISTS Perishables;
 DROP TABLE IF EXISTS Sales;
 
+
+/* -------------------------
+   Create Tables 
+*/ -------------------------
+
+-- Products Table
 CREATE TABLE Products(
     product_id INTEGER PRIMARY KEY NOT NULL,
     name TEXT NOT NULL, 
@@ -18,6 +24,7 @@ CREATE TABLE Products(
     stock_quantity INTEGER NOT NULL
 );
 
+-- Electronics Table
 CREATE TABLE Electronics(
     product_id INTEGER PRIMARY KEY NOT NULL,
     warranty_period INTEGER NOT NULL, 
@@ -30,6 +37,7 @@ CREATE TABLE Perishables(
     FOREIGN KEY(product_id) REFERENCES Products(product_id)
 );
 
+-- Sales Table 
 CREATE TABLE Sales(
     sales_id INTEGER PRIMARY KEY NOT NULL, 
     product_id INTEGER NOT NULL,
@@ -37,7 +45,9 @@ CREATE TABLE Sales(
     FOREIGN KEY(product_id) REFERENCES Products(product_id)
 );
 
--- Populate tables 
+/* -------------------------
+   Populate tables 
+*/ -------------------------
 INSERT INTO Products(product_id, name, price, stock_quantity)
     VALUES(1, "Laptop", 1200, 4);
 
