@@ -40,3 +40,12 @@ CREATE TABLE Sales(
 -- Populate tables 
 INSERT INTO Products(product_id, name, price, stock_quantity)
     VALUES(1, "Laptop", 1200, 4);
+
+INSERT INTO Electronics(product_id, warranty_period)
+    VALUES(1, 8);
+
+INSERT INTO Products(product_id, name, price, stock_quantity)
+    VALUES(2, "Phone", 1000, 10);
+
+INSERT INTO Electronics(product_id, warranty_period)
+    VALUES(2, 3);
