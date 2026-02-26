@@ -20,18 +20,35 @@ class Products:
         else:
             return False
         
-    # def sell(self, quantity):
-        
+    def sell(self, quantity):
+        self.stock_quantity -= quantity
+
+    def get_product_details(self):
+        return f"Product id: {self.product_id} | Name: {self.name} | Price: {self.price} | Quantity: {self.stock_quantity}"
 
 @dataclass
 class Electronics(Products):
     warranty_period: int
 
+    def get_product_details(self):
+        return f"Product id: {self.product_id} | Name: {self.name} | Price: {self.price} | Quantity: {self.stock_quantity} | Warranty period: {self.warranty_period}"
+
 @dataclass
 class Perishables(Products):
     expiration_date: str
 
+    def get_product_details(self):
+        return f"Product id: {self.product_id} | Name: {self.name} | Price: {self.price} | Quantity: {self.stock_quantity} | Expiration date: {self.expiration_date}"
+
 @dataclass
-class Sales:
+class Sales(Products):
     sales_id: int
     price: int
+
+    def sale(self, product, quantity):
+        try:
+            product.stock_quantity -= quantity
+            self.price = product.price * quantity
+            return self.price
+        except Exception:
+            return "Insufficient quantity"
