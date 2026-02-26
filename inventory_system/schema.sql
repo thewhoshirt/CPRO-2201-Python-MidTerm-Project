@@ -25,7 +25,7 @@ CREATE TABLE Electronics(
     stock_quantity INTEGER,  
     warranty_period INTEGER, 
 
-    FOREIGN KEY(product_id, name, price, stock_quantity) REFERENCES Products(product_id)
+    FOREIGN KEY(product_id, name, price, stock_quantity) REFERENCES Products(product_id, name, price, stock_quantity)
 )
 -- Perishables Table 
 
