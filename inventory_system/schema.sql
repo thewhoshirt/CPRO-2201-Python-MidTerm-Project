@@ -59,3 +59,9 @@ INSERT INTO Products(product_id, name, price, stock_quantity)
 
 INSERT INTO Electronics(product_id, warranty_period)
     VALUES(2, 3);
+
+INSERT INTO Products(product_id, name, price, stock_quantity)
+    VALUES(3, "Banana", 10, 50);
+
+INSERT INTO Perishables(product_id, expiration_date)
+    VALUES(3, 5);

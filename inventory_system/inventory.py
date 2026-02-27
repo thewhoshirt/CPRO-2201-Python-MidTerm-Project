@@ -56,15 +56,16 @@ class Inventory:
     # -------------------------
     # Add new products
     # -------------------------
-    def add_electronic(self, name, price, stock_quantity, warranty_period):
-        add_electronic(name, price, stock_quantity, warranty_period)
+    def add_electronic(self, electronic):
+        add_electronic(electronic.name, electronic.price, electronic.stock_quantity, electronic.warranty_period)
         
-    def add_perishable(self, name, price, stock_quantity, expiration_date):
-        add_perishables(name, price, stock_quantity, expiration_date)
+    def add_perishable(self, perishable):
+        add_perishables(perishable.name, perishable.price, perishable.stock_quantity, perishable.expiration_date)
 
         
 
 i = Inventory()
-i.add_perishable("Apples",3,20,4)
+i.add_perishable(Perishables(1,"Apples",4,10,"02-10-2026"))
+i.add_electronic(Electronics(1,"TV",500,10,3))
 print(i.list_all_products())
 

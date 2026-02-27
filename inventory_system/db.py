@@ -57,17 +57,17 @@ def add_electronic(name:str, price:int, stock_quantity:int, warranty_period:int)
             cur = conn.cursor()
             # Inserts into Products
             cur.execute(
-                "INSERT INTO Products(name, price, stock_quantity) VALUES(?,?,?)", (name, price, stock_quantity) 
+                "INSERT INTO Products(name, price, stock_quantity) VALUES(?,?,?)", (name, price, stock_quantity),
             )
-        #Generates a new ID for product 
-        new_product_id = cur.lastrowid
-        
-        #Inserts into Electronics
-        cur.execute(
-            "INSERT INTO Electronics(product_id, warranty_period) VALUES (?,?)", (new_product_id, warranty_period)
-        )
+            #Generates a new ID for product 
+            new_product_id = cur.lastrowid
+            
+            #Inserts into Electronics
+            cur.execute(
+                "INSERT INTO Electronics(product_id, warranty_period) VALUES (?,?)", (new_product_id, warranty_period),
+            )
 
-        return new_product_id
+            return new_product_id
     
     #Error code, prints error and doesn't add to database 
     except sqlite3.IntegrityError as e: 
@@ -82,14 +82,14 @@ def add_perishables(name:str, price:int, stock_quantity:int, expiration_date:int
             cur.execute(
                 "INSERT INTO Products(name, price, stock_quantity) VALUES(?,?,?)", (name, price, stock_quantity) 
             )
-        #Generates a new ID for product 
-        new_product_id = cur.lastrowid
+            #Generates a new ID for product 
+            new_product_id = cur.lastrowid
 
-        cur.execute(
-            "INSERT INTO Perishables(product_id, expiration_date) VALUES (?,?)", (new_product_id, expiration_date)
-        )
+            cur.execute(
+                "INSERT INTO Perishables(product_id, expiration_date) VALUES (?,?)", (new_product_id, expiration_date)
+            )
 
-        return new_product_id
+            return new_product_id
     
     except sqlite3.IntegrityError as e: 
         print("Perishable Product Could Not Be Added: ", e)
