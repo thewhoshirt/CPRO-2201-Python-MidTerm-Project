@@ -67,6 +67,7 @@ def add_electronic(name:str, price:int, stock_quantity:int, warranty_period:int)
             "INSERT INTO Electronics(product_id, warranty_period) VALUES (?,?)", (new_product_id, warranty_period)
         )
 
+        #Returns Product 
         return new_product_id
     
     #Error code, prints error and doesn't add to database 
@@ -84,14 +85,18 @@ def add_perishables(name:str, price:int, stock_quantity:int, expiration_date:int
             )
         #Generates a new ID for product 
         new_product_id = cur.lastrowid
-
+        
+        #Inserts into perishables table 
         cur.execute(
             "INSERT INTO Perishables(product_id, expiration_date) VALUES (?,?)", (new_product_id, expiration_date)
         )
 
+        #Returns Product 
         return new_product_id
     
     except sqlite3.IntegrityError as e: 
         print("Perishable Product Could Not Be Added: ", e)
         return None
 
+# def delete_product(product_id):
+    
