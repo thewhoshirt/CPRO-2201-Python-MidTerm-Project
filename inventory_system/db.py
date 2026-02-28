@@ -35,7 +35,7 @@ def get_all_electronics() -> list[Electronics]:
             ORDER BY p.product_id 
         """).fetchall()
 
-    return [Electronics(r["product_id"], r["name"], r["price"], r["stock_quantity", r["warranty_period"]]) for r in rows]
+    return [Electronics(r["product_id"], r["name"], r["price"], r["stock_quantity"], r["warranty_period"]) for r in rows]
 
 def get_all_perishable() -> list[Perishables]:
     with connect() as conn: 
@@ -46,7 +46,7 @@ def get_all_perishable() -> list[Perishables]:
             ORDER BY p.product_id 
         """).fetchall()
 
-    return [Perishables(r["product_id"], r["name"], r["price"], r["stock_quantity", r["expiration_date"]]) for r in rows]
+    return [Perishables(r["product_id"], r["name"], r["price"], r["stock_quantity"], r["expiration_date"]) for r in rows]
 
 # -------------------------
 # Add to electronics and produce 
@@ -57,15 +57,15 @@ def add_electronic(name:str, price:int, stock_quantity:int, warranty_period:int)
             cur = conn.cursor()
             # Inserts into Products
             cur.execute(
-                "INSERT INTO Products(name, price, stock_quantity) VALUES(?,?,?)", (name, price, stock_quantity) 
+                "INSERT INTO Products(name, price, stock_quantity) VALUES(?,?,?)", (name, price, stock_quantity),
             )
-        #Generates a new ID for product 
-        new_product_id = cur.lastrowid
-        
-        #Inserts into Electronics
-        cur.execute(
-            "INSERT INTO Electronics(product_id, warranty_period) VALUES (?,?)", (new_product_id, warranty_period)
-        )
+            #Generates a new ID for product 
+            new_product_id = cur.lastrowid
+            
+            #Inserts into Electronics
+            cur.execute(
+                "INSERT INTO Electronics(product_id, warranty_period) VALUES (?,?)", (new_product_id, warranty_period),
+            )
 
         #Returns Product 
         return new_product_id
