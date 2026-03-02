@@ -97,6 +97,54 @@ def add_perishables(name:str, price:int, stock_quantity:int, expiration_date:int
     except sqlite3.IntegrityError as e: 
         print("Perishable Product Could Not Be Added: ", e)
         return None
-
-# def delete_product(product_id):
     
+# -------------------------
+# Deletes Product 
+# -------------------------  
+
+def delete_product(product_id):
+    try:
+        with connect() as conn:
+            cur = conn.cursor()
+            cur.execute(
+                """
+                DELETE FROM Products
+                WHERE product_id = ?
+                """, (product_id,)
+            )
+            if cur.rowcount == 0:
+                print(f"No product with ID '{product_id}' was found.")
+            else:
+                print(f"Product ID '{product_id}' was deleted")
+    except sqlite3.Error as e:
+        print(f"Database Error: ", e)
+
+# -------------------------
+# Update price and stock_quantity 
+# -------------------------
+
+# Update price
+def update_electronic(product_id, price):
+    try: 
+        with connect() as conn:
+            cur = conn.cursor()
+            cur.execute(
+                "UPDATE Product SET  price = ? WHERE product_id = ?",(price, product_id)
+            )
+    except sqlite3.InterruptedError as e:
+        print("Product could not be updated: ", e)
+
+# Update stock_quantity 
+def update_electronic(product_id, stock_quantity):
+    try: 
+        with connect() as conn:
+            cur = conn.cursor()
+            cur.execute(
+                "UPDATE Product SET  stock_quantity = ? WHERE product_id = ?",(stock_quantity, product_id)
+            )
+    except sqlite3.InterruptedError as e:
+        print("Product could not be updated: ", e)
+
+# -------------------------
+# Checks stock_quantity  
+# -------------------------

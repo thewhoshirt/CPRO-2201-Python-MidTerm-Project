@@ -28,13 +28,14 @@ CREATE TABLE Products(
 CREATE TABLE Electronics(
     product_id INTEGER PRIMARY KEY NOT NULL,
     warranty_period INTEGER NOT NULL, 
-    FOREIGN KEY(product_id) REFERENCES Products(product_id)
+    FOREIGN KEY(product_id) REFERENCES Products(product_id) ON DELETE CASCADE -- on deleting the product id it will automatically delete it from the associated tables 
 );
+
 -- Perishables Table 
 CREATE TABLE Perishables(
     product_id INTEGER PRIMARY KEY NOT NULL,
     expiration_date TEXT, 
-    FOREIGN KEY(product_id) REFERENCES Products(product_id)
+    FOREIGN KEY(product_id) REFERENCES Products(product_id) ON DELETE CASCADE -- on deleting the product id it will automatically delete it from the associated tables 
 );
 
 -- Sales Table 
@@ -42,7 +43,7 @@ CREATE TABLE Sales(
     sales_id INTEGER PRIMARY KEY NOT NULL, 
     product_id INTEGER NOT NULL,
     price INTEGER NOT NULL,
-    FOREIGN KEY(product_id) REFERENCES Products(product_id)
+    FOREIGN KEY(product_id) REFERENCES Products(product_id) ON DELETE CASCADE  -- on deleting the product id it will automatically delete it from the associated tables 
 );
 
 /* -------------------------
