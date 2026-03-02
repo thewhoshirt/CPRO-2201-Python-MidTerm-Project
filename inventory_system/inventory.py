@@ -1,7 +1,8 @@
 # Inventory Management Logic 
-from db import get_all_electronics, get_all_perishable, add_electronic, add_perishables, create_db
+from db import get_all_electronics, get_all_perishable, add_electronic, add_perishables, delete_product, update_price, update_stock, create_db
 from models import Products, Electronics, Perishables
 
+# won't need? be in app.py instead?
 create_db()
 
 class Inventory:
@@ -58,14 +59,53 @@ class Inventory:
     # -------------------------
     def add_electronic(self, electronic):
         add_electronic(electronic.name, electronic.price, electronic.stock_quantity, electronic.warranty_period)
+
+        self.list_all_products()
         
     def add_perishable(self, perishable):
         add_perishables(perishable.name, perishable.price, perishable.stock_quantity, perishable.expiration_date)
 
-        
+        self.list_all_products()
 
+    # -------------------------
+    # Delete product
+    # -------------------------
+    def delete_product(self, product_id):
+        delete_product(product_id)
+
+        self.list_all_products()
+
+    # -------------------------
+    # Update product
+    # -------------------------
+    def update_price(self, product, new_price):
+        product.update_price(new_price)
+        update_price(product.product_id, new_price)
+
+        self.list_all_products()
+
+    def update_stock(self, product, quantity):
+        in_stock = product.update_stock(quantity)
+        if in_stock == "Out of stock":
+            self.list_all_products()
+        else:
+            update_stock(product.product_id, quantity)
+
+        
+# testing
 i = Inventory()
+e = Electronics(1,"TV",500,10,3)
 i.add_perishable(Perishables(1,"Apples",4,10,"02-10-2026"))
-i.add_electronic(Electronics(1,"TV",500,10,3))
+i.add_electronic(e)
 print(i.list_all_products())
+i.delete_product(1)
+print(i.list_all_products())
+
+i.update_price(e, 1000)
+print(e.get_product_details())
+i.update_stock(e, 2)
+print(e.get_product_details())
+print(e.update_stock(10))
+print(e.get_product_details())
+
 

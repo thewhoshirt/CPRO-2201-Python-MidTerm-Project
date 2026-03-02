@@ -83,13 +83,13 @@ def add_perishables(name:str, price:int, stock_quantity:int, expiration_date:int
             cur.execute(
                 "INSERT INTO Products(name, price, stock_quantity) VALUES(?,?,?)", (name, price, stock_quantity) 
             )
-        #Generates a new ID for product 
-        new_product_id = cur.lastrowid
-        
-        #Inserts into perishables table 
-        cur.execute(
-            "INSERT INTO Perishables(product_id, expiration_date) VALUES (?,?)", (new_product_id, expiration_date)
-        )
+            #Generates a new ID for product 
+            new_product_id = cur.lastrowid
+            
+            #Inserts into perishables table 
+            cur.execute(
+                "INSERT INTO Perishables(product_id, expiration_date) VALUES (?,?)", (new_product_id, expiration_date)
+            )
 
         #Returns Product 
         return new_product_id
@@ -124,23 +124,23 @@ def delete_product(product_id):
 # -------------------------
 
 # Update price
-def update_electronic(product_id, price):
+def update_price(product_id, price):
     try: 
         with connect() as conn:
             cur = conn.cursor()
             cur.execute(
-                "UPDATE Product SET  price = ? WHERE product_id = ?",(price, product_id)
+                "UPDATE Products SET  price = ? WHERE product_id = ?",(price, product_id)
             )
     except sqlite3.InterruptedError as e:
         print("Product could not be updated: ", e)
 
 # Update stock_quantity 
-def update_electronic(product_id, stock_quantity):
+def update_stock(product_id, stock_quantity):
     try: 
         with connect() as conn:
             cur = conn.cursor()
             cur.execute(
-                "UPDATE Product SET  stock_quantity = ? WHERE product_id = ?",(stock_quantity, product_id)
+                "UPDATE Products SET  stock_quantity = ? WHERE product_id = ?",(stock_quantity, product_id)
             )
     except sqlite3.InterruptedError as e:
         print("Product could not be updated: ", e)
