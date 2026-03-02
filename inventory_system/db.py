@@ -131,7 +131,7 @@ def update_price(product_id, price):
             cur.execute(
                 "UPDATE Products SET  price = ? WHERE product_id = ?",(price, product_id)
             )
-    except sqlite3.InterruptedError as e:
+    except sqlite3.IntegrityError as e:
         print("Product could not be updated: ", e)
 
 # Update stock_quantity 
@@ -142,9 +142,19 @@ def update_stock(product_id, stock_quantity):
             cur.execute(
                 "UPDATE Products SET  stock_quantity = ? WHERE product_id = ?",(stock_quantity, product_id)
             )
-    except sqlite3.InterruptedError as e:
+    except sqlite3.IntegrityError as e:
         print("Product could not be updated: ", e)
 
 # -------------------------
 # Checks stock_quantity  
 # -------------------------
+def get_quantity(product_id: int) -> int |None: 
+    try: 
+        with connect() as conn:
+            row = conn.execute(
+                "SELECT stock_quantity FROM Products WHERE product_id =?", (product_id)
+            ).fetchone()
+        return row["stock_quantity"] if row else None
+    except sqlite3.IntegrityError as e:
+        print("Error fetching stock quantity: ",e)
+        return None
