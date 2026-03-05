@@ -103,7 +103,7 @@ class Inventory:
         if in_stock:
             sale = Sales(product.product_id, 1, quantity, product.price * quantity)
 
-            return add_sale(sale.product_id, sale.quantity, sale.price)
+            add_sale(sale.product_id, sale.quantity, sale.price)
 
         else:
             return "Not enough stock item in stock."
@@ -120,24 +120,24 @@ class Inventory:
 
         
 # # testing
-# i = Inventory()
-# e = Electronics(1,"TV",500,10,3)
-# p = Perishables(1,"Apples",4,10,"02-10-2026")
-# i.add_perishable(p)
-# i.add_electronic(e)
-# print(i.list_all_products())
-# # i.delete_product(1)
-# print(i.list_all_products())
+i = Inventory()
+e = Electronics(1,"TV",500,10,3)
+p = Perishables(1,"Apples",4,10,"02-10-2026")
+i.add_perishable(p)
+i.add_electronic(e)
+print(i.list_all_products())
+# i.delete_product(1)
+print(i.list_all_products())
 
-# i.update_price(e, 1000)
-# print(e.get_product_details())
-# i.update_stock(e, 2)
-# print(e.get_product_details())
-# print(e.update_stock(10))
-# print(e.get_product_details())
+i.update_price(e, 1000)
+print(e.get_product_details())
+i.update_stock(e, 2)
+print(e.get_product_details())
+print(e.update_stock(10))
+print(e.get_product_details())
 
-# print(i.sale(p,14))
-# print(i.display_sales())
-# print(i.list_all_products())
+i.sale(p,14)
+print(i.display_sales())
+print(i.list_all_products())
 
 
