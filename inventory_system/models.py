@@ -24,12 +24,12 @@ class Products:
             
             if not self.is_in_stock():
                 self.stock_quantity = self.stock_quantity + quantity
-                return "Out of stock"
+                return False
             else:
                 return self.stock_quantity
         else:
             self.stock_quantity = self.stock_quantity + quantity
-            return "Out of stock"
+            return False
 
     # -------------------------
     # Check if product is in stock
@@ -67,17 +67,23 @@ class Perishables(Products):
         return f"Product id: {self.product_id} | Name: {self.name} | Price: {self.price} | Quantity: {self.stock_quantity} | Expiration date: {self.expiration_date}"
 
 @dataclass
-class Sales(Products):
+class Sales:
+    product_id: int
     sales_id: int
+    quantity: int
     price: int
 
     # -------------------------
     #  Managing a sale
     # -------------------------
     def sale(self, product, quantity):
+        self.quantity = quantity
         sale = product.update_stock(quantity)
         if sale != "Out of stock":
             self.price = product.price * quantity
             return self.price
         else:
             return sale
+        
+    def get_product_details(self):
+        return f"Sale id: {self.sales_id} | Product id: {self.product_id} | Quantity: {self.quantity} | Price: {self.price}"

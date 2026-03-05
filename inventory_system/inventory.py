@@ -1,6 +1,7 @@
 # Inventory Management Logic 
-from db import get_all_electronics, get_all_perishable, add_electronic, add_perishables, delete_product, update_price, update_stock, create_db
-from models import Products, Electronics, Perishables
+from db import (get_all_electronics, get_all_perishable, add_electronic, add_perishables, 
+                delete_product, update_price, update_stock,add_sale, get_all_sales, create_db)
+from models import Electronics, Perishables, Sales
 
 # won't need? be in app.py instead?
 create_db()
@@ -86,10 +87,27 @@ class Inventory:
 
     def update_stock(self, product, quantity):
         in_stock = product.update_stock(quantity)
-        if in_stock == "Out of stock":
+        if in_stock == False:
             self.list_all_products()
         else:
             update_stock(product.product_id, quantity)
+
+    # -------------------------
+    # Managing a sale
+    # -------------------------
+    def sale(self, product, quantity):
+        in_stock = update_stock(product, quantity)
+        if in_stock != False:
+            sale = Sales(product.product_id, 1, quantity, product.price * quantity)
+            try:
+                add_sale(sale.product_id, sale.quantity, sale.price)
+
+                return "Sale success."
+            except Exception: 
+                return "Sale unsuccessful."
+        else:
+            return "Not enough stock item in stock."
+
 
         
 # # testing
@@ -107,5 +125,7 @@ class Inventory:
 # print(e.get_product_details())
 # print(e.update_stock(10))
 # print(e.get_product_details())
+
+# i.sale(e,4)
 
 

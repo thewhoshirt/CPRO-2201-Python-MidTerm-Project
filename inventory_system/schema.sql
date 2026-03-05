@@ -42,6 +42,7 @@ CREATE TABLE Perishables(
 CREATE TABLE Sales(
     sales_id INTEGER PRIMARY KEY NOT NULL, 
     product_id INTEGER NOT NULL,
+    quantity INTEGER NOT NULL,
     price INTEGER NOT NULL,
     FOREIGN KEY(product_id) REFERENCES Products(product_id) ON DELETE CASCADE  -- on deleting the product id it will automatically delete it from the associated tables 
 );

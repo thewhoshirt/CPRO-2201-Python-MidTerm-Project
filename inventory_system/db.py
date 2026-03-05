@@ -162,3 +162,28 @@ def get_quantity(product_id: int) -> int |None:
 # -------------------------
 # Sales
 # -------------------------
+def add_sale(product_id:int, quantity:int, price:int) -> int | None:
+    try: 
+        with connect() as conn:
+            cur = conn.cursor()
+
+            #Generates a new ID for product 
+            sales_id = cur.lastrowid
+
+            # Inserts into Products
+            cur.execute(
+                "INSERT INTO Sales(sales_id, product_id, quantity, price) VALUES(?,?,?,?)", (sales_id, product_id, quantity, price) 
+            )
+
+        #Returns Product 
+        return product_id
+    
+    except sqlite3.IntegrityError as e: 
+        print("Sale Could Not Be Added: ", e)
+        return None
+    
+def get_all_sales() -> list[Products]:
+    with connect() as conn:
+        rows = conn.execute("""SELECT * FROM Sales""").fetchall()
+
+    return [Sales(r["sales_id"], r["product_id"], r["quantity"], r["price"]) for r in rows]
