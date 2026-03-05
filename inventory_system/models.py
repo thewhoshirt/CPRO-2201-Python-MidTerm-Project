@@ -19,17 +19,11 @@ class Products:
     # Automatically update stock
     # -------------------------
     def update_stock(self, quantity):
-        if self.is_in_stock():
+        if self.stock_quantity >= quantity:
             self.stock_quantity = self.stock_quantity - quantity
-            
-            if not self.is_in_stock():
-                self.stock_quantity = self.stock_quantity + quantity
-                return False
-            else:
-                return self.stock_quantity
+            return self.stock_quantity
         else:
-            self.stock_quantity = self.stock_quantity + quantity
-            return False
+            return "Out of stock"
 
     # -------------------------
     # Check if product is in stock
@@ -85,5 +79,5 @@ class Sales:
         else:
             return sale
         
-    def get_product_details(self):
+    def get_sales_details(self):
         return f"Sale id: {self.sales_id} | Product id: {self.product_id} | Quantity: {self.quantity} | Price: {self.price}"
