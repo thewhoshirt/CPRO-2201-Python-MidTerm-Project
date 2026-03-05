@@ -103,7 +103,7 @@ class Inventory:
         if in_stock:
             sale = Sales(product.product_id, 1, quantity, product.price * quantity)
 
-            return add_sale(sale.product_id, sale.quantity, sale.price)
+            add_sale(sale.product_id, sale.quantity, sale.price)
 
         else:
             return "Not enough stock item in stock."
@@ -136,7 +136,7 @@ class Inventory:
 # print(e.update_stock(10))
 # print(e.get_product_details())
 
-# print(i.sale(p,14))
+# i.sale(p,14)
 # print(i.display_sales())
 # print(i.list_all_products())
 
