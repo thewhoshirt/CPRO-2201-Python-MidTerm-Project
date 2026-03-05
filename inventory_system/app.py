@@ -103,14 +103,4 @@ command=update_perishable_click).pack(pady=2)
 tk.Button(left, text="Delete Perishable",
 command=delete_perishable_click).pack(pady=2)
 
-#-- perishables buttons 
-tk.Button(left, text="Add Perishable",
-command=add_perishable_click).pack(pady=3)
-tk.Button(left, text="Update Perishable",
-command=update_perishable_click).pack(pady=2)
-tk.Button(left, text="Delete Perishable",
-command=delete_perishable_click).pack(pady=2)
-
-
-
 root.mainloop()
