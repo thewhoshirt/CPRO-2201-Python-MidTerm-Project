@@ -10,6 +10,7 @@ class Inventory:
     def __init__(self):
         self.electronics = {}
         self.perishables = {}
+        self.sales = []
 
     # -------------------------
     # Get electronics and perishables from database
@@ -89,34 +90,43 @@ class Inventory:
         in_stock = product.update_stock(quantity)
         if in_stock == False:
             self.list_all_products()
+            return False
         else:
-            update_stock(product.product_id, quantity)
+            update_stock(product.product_id, in_stock)
+            return in_stock
 
     # -------------------------
     # Managing a sale
     # -------------------------
     def sale(self, product, quantity):
-        in_stock = update_stock(product, quantity)
-        if in_stock != False:
+        in_stock = self.update_stock(product, quantity)
+        if in_stock:
             sale = Sales(product.product_id, 1, quantity, product.price * quantity)
-            try:
-                add_sale(sale.product_id, sale.quantity, sale.price)
 
-                return "Sale success."
-            except Exception: 
-                return "Sale unsuccessful."
+            return add_sale(sale.product_id, sale.quantity, sale.price)
+
         else:
             return "Not enough stock item in stock."
+        
+
+    def display_sales(self):
+        self.sales.clear()
+        all_sales = get_all_sales()
+        for s in all_sales:
+            self.sales.append(Sales(s.sales_id, s.product_id, s.quantity, s.price).get_sales_details())
+        return self.sales
+
 
 
         
 # # testing
 # i = Inventory()
 # e = Electronics(1,"TV",500,10,3)
-# i.add_perishable(Perishables(1,"Apples",4,10,"02-10-2026"))
+# p = Perishables(1,"Apples",4,10,"02-10-2026")
+# i.add_perishable(p)
 # i.add_electronic(e)
 # print(i.list_all_products())
-# i.delete_product(1)
+# # i.delete_product(1)
 # print(i.list_all_products())
 
 # i.update_price(e, 1000)
@@ -126,6 +136,8 @@ class Inventory:
 # print(e.update_stock(10))
 # print(e.get_product_details())
 
-# i.sale(e,4)
+# print(i.sale(p,14))
+# print(i.display_sales())
+# print(i.list_all_products())
 
 
