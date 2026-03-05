@@ -92,20 +92,20 @@ class Inventory:
             update_stock(product.product_id, quantity)
 
         
-# testing
-i = Inventory()
-e = Electronics(1,"TV",500,10,3)
-i.add_perishable(Perishables(1,"Apples",4,10,"02-10-2026"))
-i.add_electronic(e)
-print(i.list_all_products())
-i.delete_product(1)
-print(i.list_all_products())
+# # testing
+# i = Inventory()
+# e = Electronics(1,"TV",500,10,3)
+# i.add_perishable(Perishables(1,"Apples",4,10,"02-10-2026"))
+# i.add_electronic(e)
+# print(i.list_all_products())
+# i.delete_product(1)
+# print(i.list_all_products())
 
-i.update_price(e, 1000)
-print(e.get_product_details())
-i.update_stock(e, 2)
-print(e.get_product_details())
-print(e.update_stock(10))
-print(e.get_product_details())
+# i.update_price(e, 1000)
+# print(e.get_product_details())
+# i.update_stock(e, 2)
+# print(e.get_product_details())
+# print(e.update_stock(10))
+# print(e.get_product_details())
 
 

@@ -158,3 +158,7 @@ def get_quantity(product_id: int) -> int |None:
     except sqlite3.IntegrityError as e:
         print("Error fetching stock quantity: ",e)
         return None
+    
+# -------------------------
+# Sales
+# -------------------------

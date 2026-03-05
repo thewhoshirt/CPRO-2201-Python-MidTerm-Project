@@ -1,19 +1,23 @@
 # User Interface
-import sqlite3
-# import db
+import inventory
+import db
+import tkinter as tk 
+from tkinter import messagebox
 
 
-# Use for testing the Database works 
-# db.create_db()
+# --------------------
+# APP START
+# --------------------
+db.create_db() 
 
-# def show_products():
-#     products = db.get_all_electronics()
-#     print("\n---Products---")
-#     if not products: 
-#         print("(none)\n")
-#         return
-#     for p in products: 
-#         print(f"{p.product_id} | {p.name} | ${p.price} | Current Stock: {p.stock_quantity} | {p.warranty_period}")
-#     print()
+root = tk.Tk()
+root.title("Midterm Group Project - Inventory and Sales Management System")
+root.geometry("1100x520")
 
-# show_products()
+left = tk.Frame(root)
+left.pack(side="left", padx=15, pady=15)
+
+right = tk.Frame(root)
+right.pack(side="right", padx=15, pady=15, fill="both", expand=True)
+
+root.mainloop()
