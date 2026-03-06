@@ -6,10 +6,10 @@
 -- • Perishables (for perishable-specific data)
 -- • Sales (to store transaction history)
 
-DROP TABLE IF EXISTS Products;
 DROP TABLE IF EXISTS Electronics;
 DROP TABLE IF EXISTS Perishables;
 DROP TABLE IF EXISTS Sales;
+DROP TABLE IF EXISTS Products;
 
 
 /* -------------------------
