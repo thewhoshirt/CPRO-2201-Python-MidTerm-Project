@@ -51,6 +51,16 @@ class Inventory:
         else:
             display_list.append('No perishables available')
 
+        display_list.append("---------------")
+        display_list.append("Sales")
+        display_list.append("---------------")
+        sales_details = self.display_sales()
+        if sales_details:
+            for detail in sales_details:
+                display_list.append(detail)
+        else:
+            display_list.append('No sales currently')
+
         return display_list
     
     # -------------------------

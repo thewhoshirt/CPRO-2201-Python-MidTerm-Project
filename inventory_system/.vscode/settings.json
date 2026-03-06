@@ -3,6 +3,7 @@
         "executescript",
         "lastrowid",
         "padx",
-        "pady"
+        "pady",
+        "textvariable"
     ]
 }
