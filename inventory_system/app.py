@@ -114,23 +114,21 @@ def update_electronic_click():
         messagebox.showwarning("No product", "Select an electronic.")
         return
     
-    new_price = electronic_price.get().strip()
     new_stock = electronic_stock.get().strip()
 
-    # checks datatype of price and stock
+    # checks datatype stock
     try:
-        numbers = float(new_price), int(new_stock)
+        stock =  int(new_stock)
     except:
-        messagebox.showwarning("Type", "Price and stock quantity must be a number.")
+        messagebox.showwarning("Type", "Stock quantity must be a number.")
         return
     
     # checks if inputs are greater than 0
-    if float(new_price) <= 0 or int(new_stock) < 0:
-        messagebox.showwarning("Invalid Price", "Price and stock quantity must be greater than 0.")
+    if int(new_stock) < 0:
+        messagebox.showwarning("Invalid Price", "Stock quantity must be greater than 0.")
         return
     
     # updated price of electronic
-    inv.update_price(electronic,new_price)
     inv.user_update_stock(electronic, new_stock)
     clear_fields()
     refresh_list()
@@ -193,24 +191,22 @@ def update_perishable_click():
         messagebox.showwarning("No product", "Select a perishable.")
         return
     
-    new_price = perishable_price.get().strip()
     new_stock = perishable_stock.get().strip()
 
     # checks if the inputs are a number
     try:
-        numbers = float(new_price), int(new_stock)
+        stock = int(new_stock)
     except:
-        messagebox.showwarning("Type", "Price and stock quantity must be a number.")
+        messagebox.showwarning("Type", "Stock quantity must be a number.")
         return
     
     # checks if inputs are greater than 0
-    if float(new_price) <= 0 or int(new_stock) < 0:
-        messagebox.showwarning("Invalid Price", "Price and stock quantity must be greater.")
+    if int(new_stock) < 0:
+        messagebox.showwarning("Invalid Price", "Stock quantity must be greater than 0.")
         return
     
     # updates price
     inv.user_update_stock(perishable,new_stock)
-    inv.update_price(perishable,new_price)
     clear_fields()
     refresh_list()
 
@@ -334,7 +330,7 @@ electronic_warranty.pack()
 #-- electronic buttons 
 tk.Button(left, text="Add Electronic",
 command=add_electronic_click).pack(pady=3)
-tk.Button(left, text="Update Electronic",
+tk.Button(left, text="Update Electronic Stock",
 command=update_electronic_click).pack(pady=2)
 tk.Button(left, text="Delete Electronic",
 command=delete_electronic_click).pack(pady=2)
@@ -366,7 +362,7 @@ perishable_expiration.pack()
 #-- perishables buttons 
 tk.Button(left, text="Add Perishable",
 command=add_perishable_click).pack(pady=3)
-tk.Button(left, text="Update Perishable",
+tk.Button(left, text="Update Perishable Stock",
 command=update_perishable_click).pack(pady=2)
 tk.Button(left, text="Delete Perishable",
 command=delete_perishable_click).pack(pady=2)

@@ -83,11 +83,6 @@ class Inventory:
     # -------------------------
     # Update product
     # -------------------------
-    def update_price(self, product, new_price):
-        product.update_price(new_price)
-        update_price(product.product_id, new_price)
-
-
     def update_stock(self, product, quantity):
         in_stock = product.update_stock(quantity)
         if in_stock == False:
