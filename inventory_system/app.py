@@ -11,8 +11,11 @@ inv = inventory.Inventory()
 # --------------------
 # Products
 # --------------------
+
+#has it not selecting any products at open 
 selected_product_id = None
 
+# refreshes list when items are added, deletes, updated, the window is opened or a sale is added 
 def refresh_list():
     listbox_products.delete(0, tk.END)
     for p in inv.list_all_products():
@@ -27,6 +30,7 @@ def on_product_select(event):
 
     row = listbox_products.get(sel[0])
     try:
+        # splits the string so we can correctly select a product ID for a sale 
         product_id_str = row.split("|")[0].split(":")[1].strip()
         selected_product_id = int(product_id_str)
     except(ValueError, IndexError):
@@ -87,11 +91,12 @@ def add_sale_click():
     quantity_entered = tk.Entry(sale_window, width=20)
     quantity_entered.pack(pady=5)
 
-
+    # creates a var to display the product price, that can be updated as the quantity increases 
     price_var = tk.StringVar()
     price_var.set(f"Total Price: {product.price}")
     tk.Label(sale_window, textvariable=price_var).pack(pady=5)
 
+    #Updates/displays price of purchases in the sales window 
     def update_price(*args):
         try:
             qty = int(quantity_entered.get())
@@ -101,9 +106,6 @@ def add_sale_click():
             price_var.set(f"Total Price: {product.price}")
     quantity_entered.bind("<KeyRelease>", update_price)
    
-
-    
-
     #Buy Button function 
     def on_buy():
         try:
@@ -123,6 +125,7 @@ def add_sale_click():
     def on_cancel():
        sale_window.destroy()
     
+    #-- Sale Windows Buttons 
     button_frame = tk.Frame(sale_window)
     button_frame.pack(pady=10)
 
@@ -146,7 +149,9 @@ right.pack(side="right", padx=15, pady=15, fill="both", expand=True)
 
 # ----- Products List ------
 
-# -- Electronic --
+# --------------------
+# ELECTRONS 
+# --------------------
 tk.Label(left, text="ELECTRONICS", font=("Arial", 12, "bold")).pack(pady=5)
 
 tk.Label(left, text="Product Name").pack()
@@ -176,7 +181,9 @@ command=delete_electronic_click).pack(pady=2)
 
 tk.Label(left, text=" ").pack()
 
-# -- Perishables --
+# --------------------
+# PERISHABLES
+# --------------------
 tk.Label(left, text="PERISHABLES ", font=("Arial", 12, "bold")).pack(pady=5)
 
 tk.Label(left, text="Product Name").pack()
@@ -203,7 +210,10 @@ command=update_perishable_click).pack(pady=2)
 tk.Button(left, text="Delete Perishable",
 command=delete_perishable_click).pack(pady=2)
 
-#---- Listbox
+# --------------------
+# LISTBOX
+# --------------------
+
 tk.Label(right, text="Products Table", font=("Arial", 12, "bold")).pack()
 listbox_products = tk.Listbox(right, width=130, height=30)
 listbox_products.pack(pady=6)

@@ -27,7 +27,7 @@ class Inventory:
             self.perishables[p.product_id] = Perishables(p.product_id, p.name, p.price, p.stock_quantity, p.expiration_date)
     
     # -------------------------
-    # Get electronics and perishables into displayable format
+    # Get electronics and perishables into displayable format - and sales 
     # -------------------------
     def list_all_products(self):
         self.retrieve_products()
