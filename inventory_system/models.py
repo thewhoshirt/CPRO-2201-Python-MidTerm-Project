@@ -19,17 +19,16 @@ class Products:
     # Automatically update stock
     # -------------------------
     def update_stock(self, quantity):
-        if self.stock_quantity >= quantity:
+        if self.is_in_stock(quantity):
             self.stock_quantity = self.stock_quantity - quantity
             return self.stock_quantity
-        else:
-            return "Out of stock"
+
 
     # -------------------------
     # Check if product is in stock
     # -------------------------
-    def is_in_stock(self):
-        if self.stock_quantity > 0:
+    def is_in_stock(self, quantity):
+        if self.stock_quantity >= quantity:
             return True
         else:
             return False
@@ -38,7 +37,7 @@ class Products:
     # Get nicely displayed product details
     # -------------------------
     def get_product_details(self):
-        return f"Product id: {self.product_id} | Name: {self.name} | Price: {self.price} | Quantity: {self.stock_quantity}"
+        return f"Product id: {self.product_id} | Name: {self.name} | Price: {self.price:.2f} | Quantity: {self.stock_quantity}"
 
 @dataclass
 class Electronics(Products):
@@ -48,7 +47,7 @@ class Electronics(Products):
     # Get nicely displayed product details with warranty
     # -------------------------
     def get_product_details(self):
-        return f"Product id: {self.product_id} | Name: {self.name} | Price: {self.price} | Quantity: {self.stock_quantity} | Warranty period: {self.warranty_period}"
+        return f"Product id: {self.product_id} | Name: {self.name} | Price: {self.price:.2f} | Quantity: {self.stock_quantity} | Warranty period: {self.warranty_period}"
 
 @dataclass
 class Perishables(Products):
@@ -58,7 +57,7 @@ class Perishables(Products):
     # Get nicely displayed product details with expiration date
     # -------------------------
     def get_product_details(self):
-        return f"Product id: {self.product_id} | Name: {self.name} | Price: {self.price} | Quantity: {self.stock_quantity} | Expiration date: {self.expiration_date}"
+        return f"Product id: {self.product_id} | Name: {self.name} | Price: {self.price:.2f} | Quantity: {self.stock_quantity} | Expiration date: {self.expiration_date}"
 
 @dataclass
 class Sales:
@@ -80,4 +79,4 @@ class Sales:
             return sale
         
     def get_sales_details(self):
-        return f"Sale id: {self.sales_id} | Product id: {self.product_id} | Quantity: {self.quantity} | Price: {self.price}"
+        return f"Sale id: {self.sales_id} | Product id: {self.product_id} | Quantity: {self.quantity} | Price: {self.price:.2f}"

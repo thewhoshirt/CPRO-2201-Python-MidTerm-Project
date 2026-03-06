@@ -1,6 +1,6 @@
 # Inventory Management Logic 
 from db import (get_all_electronics, get_all_perishable, add_electronic, add_perishables, 
-                delete_product, update_price, update_stock,add_sale, get_all_sales, create_db)
+                delete_product, update_price, update_stock,add_sale, get_all_sales)
 from models import Electronics, Perishables, Sales
 
 class Inventory:
@@ -66,15 +66,12 @@ class Inventory:
     # -------------------------
     # Add new products
     # -------------------------
-    def add_electronic(self, electronic):
-        add_electronic(electronic.name, electronic.price, electronic.stock_quantity, electronic.warranty_period)
+    def add_electronic(self, name, price, stock, warranty):
+        add_electronic(name, price, stock, warranty)
 
-        self.list_all_products()
         
-    def add_perishable(self, perishable):
-        add_perishables(perishable.name, perishable.price, perishable.stock_quantity, perishable.expiration_date)
-
-        self.list_all_products()
+    def add_perishable(self, name, price, stock, date):
+        add_perishables(name, price, stock, date)
 
     # -------------------------
     # Delete product
@@ -82,7 +79,6 @@ class Inventory:
     def delete_product(self, product_id):
         delete_product(product_id)
 
-        self.list_all_products()
 
     # -------------------------
     # Update product
@@ -91,7 +87,6 @@ class Inventory:
         product.update_price(new_price)
         update_price(product.product_id, new_price)
 
-        self.list_all_products()
 
     def update_stock(self, product, quantity):
         in_stock = product.update_stock(quantity)
@@ -101,6 +96,10 @@ class Inventory:
         else:
             update_stock(product.product_id, in_stock)
             return in_stock
+        
+    def user_update_stock(self, product, quantity):
+        product.stock_quantity = quantity
+        update_stock(product.product_id, quantity)
 
     # -------------------------
     # Managing a sale

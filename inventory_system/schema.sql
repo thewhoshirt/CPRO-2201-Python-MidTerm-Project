@@ -20,7 +20,7 @@ DROP TABLE IF EXISTS Sales;
 CREATE TABLE Products(
     product_id INTEGER PRIMARY KEY NOT NULL,
     name TEXT NOT NULL, 
-    price INTEGER NOT NULL, 
+    price REAL NOT NULL, 
     stock_quantity INTEGER NOT NULL
 );
 
@@ -43,7 +43,7 @@ CREATE TABLE Sales(
     sales_id INTEGER PRIMARY KEY NOT NULL, 
     product_id INTEGER NOT NULL,
     quantity INTEGER NOT NULL,
-    price INTEGER NOT NULL,
+    price REAL NOT NULL,
     FOREIGN KEY(product_id) REFERENCES Products(product_id) ON DELETE CASCADE  -- on deleting the product id it will automatically delete it from the associated tables 
 );
 
