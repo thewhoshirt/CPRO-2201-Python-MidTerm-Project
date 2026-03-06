@@ -4,6 +4,19 @@ import db
 import tkinter as tk 
 from tkinter import messagebox
 
+# --------------------
+# Products
+# --------------------
+def on_product_select(event):
+    global selected_product_id
+
+    sel = listbox_products.curselection()
+    if not sel:
+        return
+
+    row = listbox_products.get(sel[0])
+    selected_product_id = row[0]
+
 
 # --------------------
 # Electronics 
@@ -31,15 +44,21 @@ def update_perishable_click():
 def delete_perishable_click():
     pass
 
+# --------------------
+# Sales
+# --------------------
+def add_sale_click():
+    pass
+
 
 # --------------------
 # APP START
 # --------------------
-db.create_db() 
+
 
 root = tk.Tk()
 root.title("Midterm Group Project - Inventory and Sales Management System")
-root.geometry("1920x1080")
+root.geometry("1300x820")
 
 left = tk.Frame(root)
 left.pack(side="left", padx=15, pady=15)
@@ -76,6 +95,9 @@ command=update_electronic_click).pack(pady=2)
 tk.Button(left, text="Delete Electronic",
 command=delete_electronic_click).pack(pady=2)
 
+
+tk.Label(left, text=" ").pack()
+
 # -- Perishables --
 tk.Label(left, text="PERISHABLES ", font=("Arial", 12, "bold")).pack(pady=5)
 
@@ -102,5 +124,13 @@ tk.Button(left, text="Update Perishable",
 command=update_perishable_click).pack(pady=2)
 tk.Button(left, text="Delete Perishable",
 command=delete_perishable_click).pack(pady=2)
+
+#---- Listbox
+tk.Label(right, text="Products Table", font=("Arial", 12, "bold")).pack
+listbox_products = tk.Listbox(right, width=130, height=30)
+listbox_products.pack(pady=6)
+listbox_products.bind("<<ListboxSelect>>", on_product_select)
+
+tk.Button(right, text="Buy Product", command=add_sale_click).pack(pady=6)
 
 root.mainloop()

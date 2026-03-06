@@ -3,9 +3,6 @@ from db import (get_all_electronics, get_all_perishable, add_electronic, add_per
                 delete_product, update_price, update_stock,add_sale, get_all_sales, create_db)
 from models import Electronics, Perishables, Sales
 
-# won't need? be in app.py instead?
-create_db()
-
 class Inventory:
     def __init__(self):
         self.electronics = {}
